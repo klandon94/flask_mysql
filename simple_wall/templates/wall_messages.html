@@ -1,0 +1,52 @@
+{% extends 'simple_wall.html' %}
+{% block messages %}
+
+<nav class='navbar navbar-inverse'>
+    <div class='container-fluid'>
+        <div class='navbar-header'>
+            <a class='navbar-brand active' href='#'>CodingDojo Wall (simplified)</a>
+        </div>
+        <ul class='nav navbar-nav navbar-right'>
+            <li><a href='#'><span class='glyphicon glyphicon-user'></span>{{session['name']}}</a></li>
+            <li><a href='/logout'><span class='glyphicon glyphicon-log-in'></span> Logout</a></li>
+        </ul>
+    </div>
+</nav>
+{% with errors = get_flashed_messages(category_filter=['msgsent']) %}
+    {% if errors %}
+        {% for msg in errors %}
+            <span class='success'>{{msg}}</span>
+        {% endfor %}                    
+    {% endif %}
+{% endwith %}
+<div id='messagewall'>
+    <div id='incoming'>
+        <h1>You have {{incomingmessages|length}} message(s), {{session['name']}}</h1>
+        {% for x in incomingmessages %}
+        <div class='incomingmsgs'>
+            <div class='incmsg'>
+                <p class='blue'>{{allusers[x['sent_from']-1]['first_name']}} said ({{x['date']}}):</p>
+                <p class='indent'>{{x['content']}}</p>
+            </div>
+            <div class='trashicons'>
+                <h3><a href='/delete/{{x["id"]}}'><span class='glyphicon glyphicon-trash'></span></a></h3>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div id='outgoing'>
+        <h1> Send a message </h1>
+        <h4>You have sent a total of {{sentmessages|length}} message(s)</h4>
+        {% for x in otherusers %}
+        <form action='/sendmessage/{{x["ider"]}}' method='post'>
+            <div class='form-group form-inline'>
+                <label>{{x['first_name']}}</label>
+                <textarea name='outmessage' class='form-control rounded-0' style="width:65%" rows='5'></textarea>
+                <button type='submit' class='btn btn-primary'><h3><span class='glyphicon glyphicon-send'></span></h3></button>
+            </div>
+        </form>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

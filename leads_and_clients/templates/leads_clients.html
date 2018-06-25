@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<link rel="stylesheet" type='text/css' href='{{url_for('static',filename='jquery-ui.css')}}'>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	 crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	 crossorigin="anonymous">
+	<title>Leads and Clients</title>
+	<script>
+		function explodePie(e) {
+			if (typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+				e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+			} else {
+				e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+			}
+			e.chart.render();˜
+		}
+		$(function() {
+			$(".datepicker").datepicker();
+		});
+		// window.onload = function () {
+		$(document).ready(function() {
+			var js_leads_clients = {{leads_clients|safe}};
+			var newdata = [];
+			for (var i = 0; i < js_leads_clients.length; i++){
+				newdata.push({});
+				newdata[i]['y'] = js_leads_clients[i]['num_leads']
+				newdata[i]['name'] = js_leads_clients[i]['client_name']
+			}
+			var chart = new CanvasJS.Chart("chartContainer", {
+				exportEnabled: true,
+				animationEnabled: true,
+				title: {
+					text: "Clients and number of new leads"
+				},
+				legend: {
+					cursor: "pointer",
+					itemclick: explodePie
+				},
+				data: [{
+					type: "pie",
+					showInLegend: true,
+					toolTipContent: "{name}: <strong>{y}</strong>",
+					indexLabel: "{name} - {y}",
+					dataPoints: newdata
+				}]
+			});
+			chart.render();
+		})
+	</script>
+	<style>
+		#smaller {
+			width: 25%;
+		}
+		#chartContainer {
+			margin-top: 50px;
+		}
+		#top{
+			display:flex;
+			flex-direction:row;
+			justify-content:flex-end;
+			margin: 20px 20px 0 0;
+		}
+	</style>
+</head>
+
+<body>
+	<div id='top'>
+		<form class='form-group form-inline p-2' action='/change_date' method='post'>
+			<input class='form-control datepicker' name = 'from' type='text' placeholder='From' value="{{session['from']}}">
+			<input class='form-control datepicker' name = 'until' type='text' placeholder='Until' value="{{session['until']}}">
+			<button class='btn btn-primary my-2 my-sm-0' type='submit'>Update</button>
+		</form>
+	</div>
+	<h3>List of all clients and number of leads</h3>
+	<table class='table table-bordered' id='smaller'>
+		<thead>
+			<tr>
+				<th>Client name</th>
+				<th>Number of leads</th>
+			</tr>
+		</thead>
+		{% for data in leads_clients %}
+		<tbody>
+			<tr>
+				<td>{{data['client_name']}}</td>
+				<td>{{data['num_leads']}}</td>
+			</tr>
+		</tbody>
+		{% endfor %}
+	</table>
+
+	<div id="chartContainer" style="height: 350px; width: 35%;"></div>
+</body>
+
+</html>

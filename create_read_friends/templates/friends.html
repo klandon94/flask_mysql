@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Friends list</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+    <!-- Optional theme --> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <style> 
+            h1{
+                text-align:center;
+                margin-bottom:35px;
+            }
+            #smaller{
+                width:60%;
+                margin: 0px auto;
+            }
+            .high{
+                color:goldenrod;
+                font-style: italic;
+            }
+            #add{
+                padding-left:25px;
+                margin-top:50px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>These are all my friends!</h1>
+        <table class='table table-bordered' id='smaller'>
+            <thead>
+                <tr>
+                    <th>First Name</th>                
+                    <th>Last Name</th>                
+                    <th>Occupation</th>                
+                </tr>
+            </thead>
+            {% for friend in friends %}
+            <tbody>
+                <tr>
+                    <td>{{friend['first_name']}}</td>
+                    <td>{{friend['last_name']}}</td>
+                    <td>{{friend['occupation']}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        <div id = 'add'>
+            <h2>Add a friend!</h2>
+            <br>
+            <form action='/create_friend' method='post'>
+                <div class='form-group form-inline'>
+                    First Name: <input class='form-control' type='text' name='first_name' value='' placeholder='First Name'>
+                </div>
+                <div class='form-group form-inline'>
+                    Last Name: <input class='form-control' type='text' name='last_name' value='' placeholder='Last Name'>
+                </div>
+                <div class='form-group form-inline'>
+                    Occupation: <input class='form-control' type='text' name='occupation' value='' placeholder='Occupation'>
+                </div>
+                <br>
+                <input class='btn btn-primary' type='submit' value='Submit'>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,113 @@
+
+<h1>Login and Registration</h1>
+{% extends 'login.html' %}
+{% block body %}
+{% with errors = get_flashed_messages(category_filter=['logout']) %}
+    {% if errors %}
+        {% for msg in errors %}
+            <span class='error' style='margin-left:75px'>{{msg}}</span>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<div id='container'>
+    <div id='register'>
+        <h3>Register here!</h3>
+        <form action="/register_user" method='post'>
+            <div class="form-group">
+                <label for="First_Name">First Name:</label>
+                <br>
+                {% with errors = get_flashed_messages(category_filter=['first_name']) %}
+                {% if errors %}
+                    {% for msg in errors %}
+                        <span class='error'>{{msg}}</span>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <input type="text" name='first_name' value='{{session['first_name']}}' class="form-control" id="First_Name" placeholder="First Name">
+            </div>
+            <div class="form-group">
+                <label for="Last_Name">Last Name:</label>
+                <br>
+                {% with errors = get_flashed_messages(category_filter=['last_name']) %}
+                {% if errors %}
+                    {% for msg in errors %}
+                        <span class='error'>{{msg}}</span>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <input type="text" name='last_name' value='{{session['last_name']}}' class="form-control" id="Last_Name" placeholder="Last Name">
+            </div>
+            <div class="form-group">
+                <label for="Email">Email:</label>
+                <br>
+                {% with errors = get_flashed_messages(category_filter=['email']) %}
+                {% if errors %}
+                    {% for msg in errors %}
+                        <span class='error'>{{msg}}</span>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <input type="text" name='email' value='{{session['email']}}' class="form-control" id="Email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="Password">Password:</label>
+                <br>
+                {% with errors = get_flashed_messages(category_filter=['password']) %}
+                {% if errors %}
+                    {% for msg in errors %}
+                        <span class='error'>{{msg}}</span>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <input type="password" name='password' class="form-control" id="Password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="Confirm_Password">Confirm password:</label>
+                <br>
+                {% with errors = get_flashed_messages(category_filter=['confirm_password']) %}
+                {% if errors %}
+                    {% for msg in errors %}
+                        <span class='error'>{{msg}}</span>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <input type="password" name='confirm_password' class="form-control" id="Confirm_Password" placeholder="Confirm password">
+            </div>
+            <div class="form-group" id='birthdate'>
+                <label for="Birthday">Birthday:</label>
+                <br>
+                {% with errors = get_flashed_messages(category_filter=['birthday']) %}
+                {% if errors %}
+                    {% for msg in errors %}
+                        <span class='error'>{{msg}}</span>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <input type="text" name='birthday' value='{{session["birthday"]}}' class="form-control datepicker" id="Birthday">
+            </div>
+            <button type="submit" value='Register' class='btn btn-success'>Register!</button>
+        </form>
+    </div>
+    <div id='login'>
+        <h3>Login here!</h3>
+        {% with errors = get_flashed_messages(category_filter=['login']) %}
+            {% if errors %}
+                {% for msg in errors %}
+                    <span class='error'>{{msg}}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/login" method='post'>
+            <div class="form-group">
+                <label for="LEmail">Email:</label>
+                <input type="text" name='login_email' value='{{session['login_email']}}' class="form-control" id="LEmail" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="LPassword">Password:</label>
+                <input type="password" name='login_password' class="form-control" id="LPassword" placeholder="Password">
+            </div>
+            <button type="submit" value='Login' class='btn btn-success'>Login!</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

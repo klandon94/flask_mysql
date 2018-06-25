@@ -1,0 +1,26 @@
+{% extends 'submit_email.html' %}
+{% block body2 %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <p class="{{category}}">{{message}}</p>     
+        {% endfor %}                    
+    {% endif %}
+{% endwith %}
+<div class='form-group row'>
+    <div class='col-sm-5'>
+        <a href='/reset' class='btn btn-primary'>Go back</a>
+    </div>
+</div>
+    <table class='table table-bordered' id='smaller'>
+        {% for email in emails %}
+        <tbody>
+            <tr>
+                <th>{{email['email']}}</th>
+                <th>{{email['time_entered']}}</th>
+                <th><a href='/delete/{{email["id"]}}' class='btn btn-primary center-block' style='width:60%'>Delete</a></th>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}

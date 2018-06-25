@@ -1,0 +1,11 @@
+{% extends 'simple_wall.html' %}
+{% block danger %}
+
+<h1 id='dangerzone'>DANGER</h1>
+<div id='centered'>
+    <p>Hmm... Message {{session['badnum']}} doesn't belong to you. Are you trying to hack my site???</p>
+    <p>Your IP address {{session['ip']}} has been recorded</p>
+    <p>Next time you attempt an activity like this we'll log you off automatically and report your IP address to our site administrator.</p>
+</div>
+
+{% endblock %}

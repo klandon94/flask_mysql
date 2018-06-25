@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+    <!-- Optional theme --> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <title>Simple Wall</title>
+    <style>
+        .container{
+            padding:30px;
+            width:40%;
+            border:2px solid black;
+            margin-top:100px;
+        }
+        h1,h4{
+            text-align:center;
+        }
+        .error{
+            color:darkred;
+            font-weight:bold;
+        }
+        .success{
+            color:darkgreen;
+            margin-left:45px;
+        }
+        #simple{
+            font-size:75px;
+        }
+        #dangerzone{
+            color:red; 
+            font-size:100px;
+        }
+        #centered{
+            text-align:center;
+            margin-top:150px;
+        }
+        #centered p{
+            font-size:25px;
+        }
+        #messagewall{
+            display: flex;
+            justify-content: space-around;
+        }
+        #incoming{
+            width:50%;
+            overflow:scroll;
+            height:600px;
+        }
+        #incoming h1{
+            margin-bottom:25px;
+        }
+        .incomingmsgs{
+            display:flex;
+            justify-content:space-around;
+            margin-bottom:15px;
+        }
+        .incmsg{
+            width:75%;
+        }
+        .incomingmsgs p{
+            font-size:20px;
+        }
+        .blue{
+            color:blue;
+        }
+        .indent{
+            margin-left:15px;
+        }
+
+        #outgoing{
+            border-left:1px solid black;
+            width:50%;
+            overflow:scroll;
+            height:700px;
+        }
+        #outgoing h4{
+            margin-bottom:25px;
+        }
+        .outmsg{
+            width:75%;
+            height:100px;
+        }
+        .form-inline, .form-inline textarea, .form-inline button{
+            margin-left:35px;
+        }
+        
+    </style>
+</head>
+<body>
+    {% block login %}
+    {% endblock %}
+
+    {% block messages %}
+    {% endblock %}
+    
+    {% block danger %}
+    {% endblock %}
+</body>
+</html>
